@@ -1,0 +1,49 @@
+*** CONFIG  ***
+	url_host: https://mypaysmart.herokuapp.com
+
+	Headers:
+		Content-Type: "application/json"
+		auth_jwt_token: "Jxy5A5kFi/QWU2UxZs0n2rIVuih8iYUuQcvxFbo2jUC+Hbj/QT5PcREdQ3F1GkrI"
+
+/// 	Mỗi API sẽ cần *auth_jwt_token* để lưu phiên đăng nhập
+	trừ API login thì ko cần
+		
+
+*** LOGIN  ***
+
+	method: POST
+	path  : "/login"
+	
+	// input 
+	body:{
+    		"user_name": "example",  //not null 
+    		"device_id": "7345435-523452405-5234543254",  //not null    GAID với android, UDID với iOS
+    		"fcm_token": "AAPI...", 			// để nhận thông báo FCM Message google
+    	
+    		"full_name": "NGUYEN NAM",
+    		"avatar_url": "https://abc.jpg",
+    		"email": "example@gmail.com",
+    		"phone": "0999999999",
+
+    		"third_party_id": "1099910"  // not null     facebook user id
+        }
+	
+	các thông tin sẽ lấy được khi login by google, facebook
+	
+	// output
+
+	{
+    		"code": "OK",
+    		"message": "Successfully: Welcome to My Pay Smart",
+   		 "data": {
+        		"auth_jwt_token": "pkNBY2gKZemDF6dHA9FbsZRO/HSIuhYyry2WcwnyKCWJLPHkOBCVp47eXrpxbKYQ",
+
+       			"user_name": "ẽample",
+        		"full_name": "NGUYEN NAM",
+        		"avatar_url": "https://...",
+        		"email": "example@gmail.com",
+        		"phone": null
+    		}
+}
+	
+	
