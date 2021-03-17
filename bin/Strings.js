@@ -6,10 +6,12 @@ var Strings={
     E_001_MESS:"Content-Type must be application/json",
 
     E_010_MESS: function(field_name){return `${field_name} field require not null`}, // field null
+    E_015_MESS: function(valueType){return `${valueType} is validate faild!`},
+
 
     E_500_MESS: "Error: Connect to Server Faild!", // server faild
 
-    OK_LOGIN: "Successfully: Welcome to My Pay Smart",
+    ADD_PHONE_BLOCK_SUCCESS: "Add phone block Successfully!",
 
 }
 

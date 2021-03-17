@@ -45,6 +45,25 @@ class PhoneBlock{
         this.conDB.query(sql_query, data_query, callback);   
     }
 
+    updateIncresmentCount(callback){
+        var sql_query = `UPDATE ${this.name_table} SET count = count +1 WHERE phone =?`;
+        var data_query = [this.phone];
+        this.conDB.query(sql_query, data_query, callback);
+    }
+
+    hasPhoneDB(callback){
+        var sql_query = `select * from ${this.name_table} WHERE phone=?`;
+        var data_query = [this.phone];
+
+        this.conDB.query(sql_query, data_query, function(err, rows){
+            if(err){
+                callback(err, false);
+            }else{
+                callback(null, rows.length > 0)
+            }
+        });   
+    }
+
 
 ///////// Action //////
 
