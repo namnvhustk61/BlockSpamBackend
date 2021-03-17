@@ -44,7 +44,12 @@ router.post('/add',  function(req, res, next){
   if(!Validate.phonenumber(req.body.phone)){res.json(Result.create(Result.E_015, Strings.E_015_MESS("number phone"), null));  return;}
 
   var _blockPhone = new PhoneBlock(req.body);
-   /** Check Table */
+   /** Check Table: NUmber Phone da co chua? 
+    * 
+    * ROi: count ++ , save phone and user_id -> table UserReport
+    * 
+    * CHUA: Insert  data 2 table
+    */
   _blockPhone.hasPhoneDB(function(err, bool){
     if(err){
        /** Err return E_500*/
