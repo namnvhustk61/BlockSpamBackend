@@ -63,11 +63,18 @@ app.use(function(err, req, res, next) {
 var mysql      = require('mysql');
 
 /*  https://client.123host.vn/  */
+// var db_config = {
+//   host     : '103.97.125.254',
+//   user     : 'blockspq_admin',
+//   password : 'vietnam999999999',
+//   database : 'blockspq_PhoneSpam'
+// }
+
 var db_config = {
-  host     : '103.97.125.254',
-  user     : 'blockspq_admin',
-  password : 'vietnam999999999',
-  database : 'blockspq_PhoneSpam'
+  host     : 'us-cdbr-east-03.cleardb.com',
+  user     : 'bd1afe430caaca',
+  password : '0e16a215',
+  database : 'heroku_962c345ae8a3819'
 }
 
 var ERR ;
