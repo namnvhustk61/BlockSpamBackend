@@ -24,6 +24,7 @@ class PhoneBlock{
             "name": (this.name === undefined)?null:this.name,
             "type":  (this.type === undefined)?null:this.type,
             "status":  (this.status === undefined)?null:this.status,
+            "count":  (this.count === undefined)?null:this.count,
         }
     }
 
@@ -38,7 +39,7 @@ class PhoneBlock{
     }
 
     getAllDB(callback){
-        var sql_query = `SELECT * FROM ${this.name_table}`;
+        var sql_query = `SELECT * FROM ${this.name_table} WHERE count >=10`;
         
         var data_query = [this.phone, this.name, this.type];
 
