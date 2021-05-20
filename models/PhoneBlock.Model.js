@@ -1,5 +1,7 @@
 'use strict';
 
+const e = require('express');
+
 class PhoneBlock{
 
     constructor(resBody){
@@ -58,9 +60,13 @@ class PhoneBlock{
 
         this.conDB.query(sql_query, data_query, function(err, rows){
             if(err){
-                callback(err, false);
+                callback(err, false, null);
             }else{
-                callback(null, rows.length > 0)
+                if(rows.length >0){
+                    callback(null, true, rows[0])
+                }else{
+                    callback(null, false, null)
+                }
             }
         });   
     }

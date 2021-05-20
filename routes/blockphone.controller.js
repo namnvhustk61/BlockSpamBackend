@@ -50,7 +50,7 @@ router.post('/add',  function(req, res, next){
     * 
     * CHUA: Insert  data 2 table
     */
-  _blockPhone.hasPhoneDB(function(err, bool){
+  _blockPhone.hasPhoneDB(function(err, bool, itemInDB){
     if(err){
        /** Err return E_500*/
       res.json(Result.create(Result.E_500, Strings.E_500_MESS, null));
@@ -62,18 +62,20 @@ router.post('/add',  function(req, res, next){
          /** Check Phone and Uer_ID in tabel UserReport */
         var jsUserReport = {user_id: req.body.user_id, phone: req.body.phone}
         var userReport = new UserReport(jsUserReport)
+
+        var data = {message:`The system has confirmed your action, this phone is also blocked by ${itemInDB["count"]} other peoples.\n If number people greater than 10 then this block phone is public for every one.`, count: itemInDB["count"]};
         userReport.addIntoDB(function(err, value){
           if(err){
             /** Err */
-            res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS + "(E_insert UserReport)", null));
+            res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS + "(E_insert UserReport)", data));
           }else{
             /**  */
             // Update Count ++ of Phone in tabel  BlockPhone
             _blockPhone.updateIncresmentCount(function(err, row){
               if(err){
-                res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS + "(E_update_count)", null));
+                res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS + "(E_update_count)", data));
               }else{
-                res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS, null));
+                res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS, data));
               }
             })
           }
@@ -93,7 +95,8 @@ router.post('/add',  function(req, res, next){
               var userReport = new UserReport(jsUserReport)
                 userReport.insertDB(function(err, row){
                   /** SUCC OR ERR --> return OK */
-                  res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS, null));
+                  var data = {message:`you are the first one to block this phone number`};
+                  res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS, data));
                 })
             }
          })
