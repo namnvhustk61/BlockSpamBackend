@@ -91,11 +91,11 @@ router.post('/add',  function(req, res, next){
             }else{
               /** */
               /** Insert Table UserReport */
-              var jsUserReport = {user_id: req.body.user_id, phone: req.body.phone}
+              var jsUserReport = {user_id: req.body.user_id, phone: req.body.phone, count: 1}
               var userReport = new UserReport(jsUserReport)
                 userReport.insertDB(function(err, row){
                   /** SUCC OR ERR --> return OK */
-                  var data = {message:`you are the first one to block this phone number`};
+                  var data = {message:`you are the first one to block this phone number. it will be public to everyone if 10 people block it`, count: 1};
                   res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS, data));
                 })
             }
