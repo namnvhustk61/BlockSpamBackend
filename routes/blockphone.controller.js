@@ -63,17 +63,17 @@ router.post('/add',  function(req, res, next){
         var jsUserReport = {user_id: req.body.user_id, phone: req.body.phone}
         var userReport = new UserReport(jsUserReport)
 
-        var data = {message:`The system has confirmed your action, this phone is also blocked by ${itemInDB["count"]} other peoples.\n If number people greater than 10 then this block phone is public for every one.`, count: itemInDB["count"]};
+        var data = {note:`The system has confirmed your action, this phone is also blocked by ${itemInDB["count"]} other peoples.\n If number people greater than 10 then this block phone is public for every one.`, count: itemInDB["count"]};
         userReport.addIntoDB(function(err, value){
           if(err){
             /** Err */
-            res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS + "(E_insert UserReport)", data));
+            res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS + "(E_I)", data));
           }else{
             /**  */
             // Update Count ++ of Phone in tabel  BlockPhone
             _blockPhone.updateIncresmentCount(function(err, row){
               if(err){
-                res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS + "(E_update_count)", data));
+                res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS + "(E_U)", data));
               }else{
                 res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS, data));
               }
@@ -95,7 +95,7 @@ router.post('/add',  function(req, res, next){
               var userReport = new UserReport(jsUserReport)
                 userReport.insertDB(function(err, row){
                   /** SUCC OR ERR --> return OK */
-                  var data = {message:`you are the first one to block this phone number. it will be public to everyone if 10 people block it`, count: 1};
+                  var data = {note:`you are the first one to block this phone number. it will be public to everyone if 10 people block it`, count: 1};
                   res.json(Result.create(Result.OK, Strings.ADD_PHONE_BLOCK_SUCCESS, data));
                 })
             }

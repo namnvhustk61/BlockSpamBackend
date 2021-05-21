@@ -11,7 +11,7 @@ var Strings={
 
     E_500_MESS: "Error: Connect to Server Faild!", // server faild
 
-    ADD_PHONE_BLOCK_SUCCESS: "Add phone block Successfully!",
+    ADD_PHONE_BLOCK_SUCCESS: "Successfully",
 
 }
 
