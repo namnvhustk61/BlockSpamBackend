@@ -41,6 +41,13 @@ router.post('/add',  function(req, res, next){
   if(!req.body.type){res.json(Result.create(Result.E_010, Strings.E_010_MESS("type"), null)); return;}
   if(!req.body.user_id){res.json(Result.create(Result.E_010, Strings.E_010_MESS("user_id"), null));  return;}
    /** Validate Phonel */
+   if(req.body.phone.includes("+84")){
+    req.body.phone =  req.body.phone.replace("+84", "0")
+   }
+   if(req.body.phone.includes("+")){
+    req.body.phone =  req.body.phone.replace("+", "")
+   }
+
   if(!Validate.phonenumber(req.body.phone)){res.json(Result.create(Result.E_015, Strings.E_015_MESS("number phone"), null));  return;}
 
   var _blockPhone = new PhoneBlock(req.body);
